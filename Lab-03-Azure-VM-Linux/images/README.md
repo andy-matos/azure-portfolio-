@@ -1,11 +1,27 @@
-🚀 Lab 03 – Deploying a Linux Virtual Machine in Microsoft Azure
-📌 Objective
+🚀 Lab 03 – Deploying and Securing a Linux Virtual Machine in Azure
+📌 Overview
 
-Deploy a Linux Virtual Machine in Microsoft Azure, configure secure remote access using SSH key authentication, install a web server (NGINX), and publish a public web page accessible over the internet.
+This lab demonstrates the deployment of a Linux Virtual Machine in Microsoft Azure using Infrastructure as a Service (IaaS).
 
-🏗 Architecture Overview
+The objective was to configure secure SSH access, deploy a web server (NGINX), expose it to the internet through proper network rules, and understand the underlying Azure networking components.
 
-This lab includes the following Azure resources:
+🎯 Objectives
+
+Deploy an Ubuntu 24.04 LTS Virtual Machine in Azure
+
+Configure SSH key-based authentication
+
+Understand Azure networking components (VNet, NSG, Public IP)
+
+Install and configure NGINX
+
+Expose a web service securely
+
+Apply cost management best practices
+
+🏗 Azure Architecture Components
+
+The following resources were deployed inside a Resource Group:
 
 Virtual Machine (Ubuntu 24.04 LTS)
 
@@ -21,103 +37,95 @@ Network Security Group (NSG)
 
 Managed OS Disk
 
-The VM was deployed inside a Virtual Network with a public IP assigned for internet access.
+Network Architecture Flow
 
-⚙️ Technologies Used
-
-Microsoft Azure Portal
-
-Ubuntu Server 24.04 LTS
-
-SSH Key Authentication
-
-Network Security Groups (NSG)
-
-NGINX Web Server
+Client → Public IP → NSG → NIC → VM → NGINX Service
 
 🔐 Security Configuration
 
-SSH access configured using a private key (.pem)
+Authentication method: SSH Public Key (.pem file)
 
-Password authentication disabled
+Password authentication avoided
 
-NSG inbound rule created to allow:
+NSG inbound rules configured:
 
-Port 22 (SSH)
+TCP 22 (SSH)
 
-Port 80 (HTTP)
+TCP 80 (HTTP)
 
-Public access controlled through Azure NSG
+VM exposed only required ports
 
-🖥 Deployment Steps
-1️⃣ Create Virtual Machine
+VM stopped (deallocated) after testing to prevent unnecessary cost
+
+Security considerations:
+
+Principle of least privilege
+
+Minimal attack surface exposure
+
+Public IP awareness
+
+Secure remote access configuration
+
+⚙️ Deployment Process
+1️⃣ Virtual Machine Creation
 
 Region: Switzerland North
 
 Image: Ubuntu Server 24.04 LTS
 
-Authentication type: SSH public key
+Size: Standard D2s_v3
 
-VM Size: Standard D2s v3
+Authentication: SSH Key
 
-2️⃣ Configure Networking
+Public IP assigned
 
-Created Virtual Network automatically
-
-Assigned Public IP
-
-Configured NSG inbound rules:
-
-Allow SSH (22)
-
-Allow HTTP (80)
-
-3️⃣ Connect via SSH
+2️⃣ SSH Connection
 ssh -i vm-lab03-linux_key.pem azureuser@<public-ip>
 
-4️⃣ Install NGINX
+3️⃣ Install NGINX Web Server
 sudo apt update
 sudo apt install nginx -y
 sudo systemctl status nginx
 
-5️⃣ Verify Web Server
+
+Service status confirmed as:
+
+active (running)
+
+4️⃣ Public Web Access Test
 
 Accessed:
 
 http://<public-ip>
 
-
 Successfully displayed:
 
-"Welcome to nginx!"
-
-🌐 Network Flow Explanation
-
-Client connects to Public IP.
-
-Traffic passes through Network Security Group.
-
-NSG allows port 80.
-
-Request reaches VM.
-
-NGINX responds with web page.
+Welcome to nginx!
 
 🧠 Key Learning Outcomes
 
-Understanding Azure IaaS architecture
+Practical understanding of Azure IaaS
 
-Deploying and configuring Linux VMs
+VM deployment lifecycle
 
-Managing NSG inbound rules
+Azure networking fundamentals
 
-Working with SSH key authentication
+NSG configuration and traffic control
 
-Publishing services securely to the internet
+SSH key-based authentication
 
-Understanding public vs private IP addressing
+Linux service management
+
+Public vs private IP addressing
+
+Basic cloud security posture
 
 💰 Cost Management
+
+The VM was deallocated after testing to avoid compute charges.
+
+Understanding Azure billing behavior is critical when working in cloud environments.
 
 📸 Evidence
 
@@ -125,16 +133,24 @@ Screenshots included in the /images folder:
 
 VM Overview
 
-NSG Inbound Rule configuration
+Networking configuration
 
-SSH terminal connection
+NSG inbound rules
 
-NGINX running
+SSH terminal session
 
-Public webpage
+NGINX public webpage
 
-📈 Professional Impact
+📈 Professional Relevance
 
-This lab demonstrates practical experience with Azure Infrastructure as a Service (IaaS), networking, security configuration, and Linux server management.
+This lab simulates a real-world scenario where infrastructure must be deployed, secured, and validated in a cloud environment.
 
-The VM was stopped (deallocated) after testing to prevent unnecessary compute charges.
+Skills demonstrated align with:
+
+Cloud Engineer roles
+
+DevOps positions
+
+Entry-level Cloud Security roles
+
+Azure Fundamentals certification preparation
