@@ -154,3 +154,11 @@ DevOps positions
 Entry-level Cloud Security roles
 
 Azure Fundamentals certification preparation
+### SSH Hardening
+
+The default SSH rule allowing access from "Any" source was modified.
+
+SSH access (port 22) was restricted to the administrator's public IP address only.
+
+This reduces attack surface and prevents unauthorized brute-force attempts from the internet.
+
